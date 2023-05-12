@@ -1,9 +1,9 @@
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:tmdb_api/tmdb_api.dart';
 import 'package:movies/Screens/database.dart';
+import 'package:movies/Screens/movie_details.dart';
 class MovieListView extends StatelessWidget {
   // String apiKey= "c6791b35095889ea80f7394618c23311";
   @override
@@ -28,14 +28,42 @@ class MovieListView extends StatelessWidget {
             child: ListTile(
               leading: Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(3)
+                  borderRadius: BorderRadius.circular(3),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
                 ),
-                  child: Image.network("https://image.tmdb.org/t/p/w500/${moviesList[index]["poster_path"]}"),
+                width: 50.0,
+                height: 150.0,
+                  child:ClipRRect(
+                    borderRadius: BorderRadius.circular(4), // Image border
+                    child: SizedBox.fromSize(
+                      size: Size.fromRadius(48), // Image radius
+                      child: Image.network('https://image.tmdb.org/t/p/w500/${moviesList[index]["poster_path"]}', fit: BoxFit.cover),
+                    ),
+                  )
+                  // child: Image.network("https://image.tmdb.org/t/p/w500/${moviesList[index]["poster_path"]}",
+                  //   height: 150.0,
+                  //   width: 100.0
+                  // ),
               ),
               title:Text(moviesList[index]["original_title"]),
               subtitle: Text(moviesList[index]["release_date"]),
         trailing: Text("..."),
-       onTap: ()=>debugPrint(moviesList[index].toString()),
+       onTap: (){
+                print(moviesList[index]);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>MovieListViewDetails(
+                  movieTitle: (moviesList[index]["original_title"] ?? "Not Found"),
+                  description: (moviesList[index]["overview"] ?? "Not Found"),
+                  image: 'https://image.tmdb.org/t/p/w500/${moviesList[index]["poster_path"]}',
+                  release_date: " ${moviesList[index]["release_date"]}",
+                )));
+       },
         )
         );
       }

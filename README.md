@@ -15,3 +15,7 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 # Flutter_Movies_App
+
+add in pubspec.yaml file two dependencies:
+1. tmdb_api
+2. google fonts

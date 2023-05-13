@@ -15,7 +15,7 @@ class MoviePoster extends StatelessWidget {
                 .of(context)
                 .size
                 .width / 4,
-            height: 160,
+            height: 200,
             decoration: BoxDecoration(
                 image: DecorationImage(
                     image: NetworkImage(imageUrl),
